@@ -1,16 +1,35 @@
 import json
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
+from .models import Message
 
 
 class ChatConsumer(WebsocketConsumer):
     # fetch the last mesages
     def fetch_messages(self, data):
-        pass
+        messages = Message.last_messages()
+        content = {
+            'messages' : messages
+        }
+        self.send_message(content)
 
     # new message
     def new_message(self, data):
+        print('new_message')
         pass
+
+    def messages_to_json(self, messages):
+        result = []
+        for message in messages:
+            result.append(self.message_to_json(message))
+        return result
+
+    def message_to_json(self, message):
+        return {
+            'author' : message.author.username,
+            'content' : message.content,
+            'timestamp' : str(message.timestamp)
+        }
     
     commands = {
         'fetch_messages' : fetch_messages,
@@ -42,9 +61,11 @@ class ChatConsumer(WebsocketConsumer):
             self.room_group_name, {"type": "chat.message", "message": message}
         )
 
+    def send_message(self, message):
+        self.send(text_data=json.dumps(message))
     # Receive message from room group
     def chat_message(self, event):
         message = event["message"]
 
         # Send message to WebSocket
-        async_to_sync(self.send(text_data=json.dumps({"message": message})))
+        self.send(text_data=json.dumps(message))
