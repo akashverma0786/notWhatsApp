@@ -1,7 +1,10 @@
+from django.contrib.auth import get_user_model
 import json
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from .models import Message
+
+User = get_user_model()
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -15,8 +18,14 @@ class ChatConsumer(WebsocketConsumer):
 
     # new message
     def new_message(self, data):
-        print('new_message')
-        pass
+        author = data['from']
+        author_user = User.objects.filter(username=author)[0]
+        message = Message.objects.create(author=author_user, content=data['message'])
+        content = {
+            'command' : 'new_message',
+            'message' : self.message_to_json(message)
+        }
+        return self.send_chat_message(content)
 
     def messages_to_json(self, messages):
         result = []
