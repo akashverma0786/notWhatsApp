@@ -30,6 +30,9 @@ class ChatConsumer(WebsocketConsumer):
     def sent_messages(self, data):
         pass
 
+    def position_handler(self, data, message):
+        pass
+
     def messages_to_json(self, messages):
         result = []
         for message in messages:
