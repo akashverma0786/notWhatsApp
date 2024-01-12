@@ -12,7 +12,8 @@ class ChatConsumer(WebsocketConsumer):
     def fetch_messages(self, data):
         messages = Message.last_messages()
         content = {
-            'messages' : messages
+            'command' : messages,
+            'messages' : self.messages_to_json(messages)
         }
         self.send_message(content)
 
@@ -26,10 +27,6 @@ class ChatConsumer(WebsocketConsumer):
             'message' : self.message_to_json(message)
         }
         return self.send_chat_message(content)
-
-    def sentMessages(self, data, message):
-        author = data['author']
-        print(f"{author}" : message)
 
     def messages_to_json(self, messages):
         result = []
