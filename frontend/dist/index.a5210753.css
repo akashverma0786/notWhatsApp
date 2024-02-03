@@ -1,0 +1,786 @@
+body {
+  letter-spacing: .1px;
+  color: #32465a;
+  text-rendering: optimizelegibility;
+  text-shadow: 1px 1px 1px #00000001;
+  -webkit-font-smoothing: antialiased;
+  background: #27ae60;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: proxima-nova, Source Sans Pro, sans-serif;
+  font-size: 1em;
+  display: flex;
+}
+
+#frame {
+  background: #e6eaea;
+  width: 100%;
+  min-width: 360px;
+  height: 100vh;
+  min-height: 300px;
+}
+
+@media screen and (width <= 360px) {
+  #frame {
+    width: 100%;
+    height: 100vh;
+  }
+}
+
+#frame #sidepanel {
+  float: left;
+  color: #f5f5f5;
+  background: #2c3e50;
+  width: 40%;
+  min-width: 280px;
+  max-width: 340px;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel {
+    width: 100px;
+    min-width: 100px;
+  }
+}
+
+#frame #sidepanel #profile {
+  width: 80%;
+  margin: 25px auto;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #profile {
+    background: #32465a;
+    width: 100%;
+    margin: 0 auto;
+    padding: 5px 0 0;
+  }
+}
+
+#frame #sidepanel #profile.expanded .wrap {
+  line-height: initial;
+  height: 210px;
+}
+
+#frame #sidepanel #profile.expanded .wrap p {
+  margin-top: 20px;
+}
+
+#frame #sidepanel #profile.expanded .wrap i.expand-button {
+  filter: FlipH;
+  -ms-filter: "FlipH";
+  transform: scaleY(-1);
+}
+
+#frame #sidepanel #profile .wrap {
+  -o-transition: .3s height ease;
+  height: 65px;
+  line-height: 65px;
+  transition: height .3s;
+  overflow: hidden;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #profile .wrap {
+    height: 65px;
+  }
+}
+
+#frame #sidepanel #profile .wrap img {
+  float: left;
+  cursor: pointer;
+  -o-transition: .3s border ease;
+  border: 2px solid #e74c3c;
+  border-radius: 50%;
+  width: 60px;
+  height: auto;
+  padding: 3px;
+  transition: border .3s;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #profile .wrap img {
+    width: 60px;
+    margin-left: 4px;
+  }
+}
+
+#frame #sidepanel #profile .wrap img.online {
+  border: 2px solid #2ecc71;
+}
+
+#frame #sidepanel #profile .wrap img.away {
+  border: 2px solid #f1c40f;
+}
+
+#frame #sidepanel #profile .wrap img.busy {
+  border: 2px solid #e74c3c;
+}
+
+#frame #sidepanel #profile .wrap img.offline {
+  border: 2px solid #95a5a6;
+}
+
+#frame #sidepanel #profile .wrap p {
+  float: left;
+  margin-left: 15px;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #profile .wrap p {
+    display: none;
+  }
+}
+
+#frame #sidepanel #profile .wrap i.expand-button {
+  float: right;
+  cursor: pointer;
+  color: #435f7a;
+  margin-top: 23px;
+  font-size: .8em;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #profile .wrap i.expand-button {
+    display: none;
+  }
+}
+
+#frame #sidepanel #profile .wrap #status-options {
+  opacity: 0;
+  visibility: hidden;
+  z-index: 99;
+  line-height: initial;
+  -o-transition: .3s all ease;
+  background: #435f7a;
+  border-radius: 6px;
+  width: 150px;
+  margin: 70px 0 0;
+  transition: all .3s;
+  position: absolute;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #profile .wrap #status-options {
+    width: 58px;
+    margin-top: 57px;
+  }
+}
+
+#frame #sidepanel #profile .wrap #status-options.active {
+  opacity: 1;
+  visibility: visible;
+  margin: 75px 0 0;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #profile .wrap #status-options.active {
+    margin-top: 62px;
+  }
+}
+
+#frame #sidepanel #profile .wrap #status-options:before {
+  content: "";
+  border-bottom: 8px solid #435f7a;
+  border-left: 6px solid #0000;
+  border-right: 6px solid #0000;
+  width: 0;
+  height: 0;
+  margin: -8px 0 0 24px;
+  position: absolute;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #profile .wrap #status-options:before {
+    margin-left: 23px;
+  }
+}
+
+#frame #sidepanel #profile .wrap #status-options ul {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li {
+  cursor: pointer;
+  padding: 15px 0 30px 18px;
+  display: block;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #profile .wrap #status-options ul li {
+    padding: 15px 0 35px 22px;
+  }
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li:hover {
+  background: #496886;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li span.status-circle {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  margin: 5px 0 0;
+  position: absolute;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #profile .wrap #status-options ul li span.status-circle {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li span.status-circle:before {
+  content: "";
+  z-index: 0;
+  background: none;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -3px 0 0 -3px;
+  position: absolute;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #profile .wrap #status-options ul li span.status-circle:before {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li p {
+  padding-left: 12px;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #profile .wrap #status-options ul li p {
+    display: none;
+  }
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-online span.status-circle {
+  background: #2ecc71;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-online.active span.status-circle:before {
+  border: 1px solid #2ecc71;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-away span.status-circle {
+  background: #f1c40f;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-away.active span.status-circle:before {
+  border: 1px solid #f1c40f;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-busy span.status-circle {
+  background: #e74c3c;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-busy.active span.status-circle:before {
+  border: 1px solid #e74c3c;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-offline span.status-circle {
+  background: #95a5a6;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-offline.active span.status-circle:before {
+  border: 1px solid #95a5a6;
+}
+
+#frame #sidepanel #profile .wrap #expanded {
+  padding: 100px 0 0;
+  display: block;
+  line-height: initial !important;
+}
+
+#frame #sidepanel #profile .wrap #expanded label {
+  float: left;
+  clear: both;
+  margin: 0 8px 5px 0;
+  padding: 5px 0;
+}
+
+#frame #sidepanel #profile .wrap #expanded input {
+  color: #f5f5f5;
+  background: #32465a;
+  border: none;
+  border-radius: 3px;
+  width: calc(100% - 43px);
+  margin-bottom: 6px;
+  padding: 7px;
+}
+
+#frame #sidepanel #profile .wrap #expanded input:focus {
+  background: #435f7a;
+  outline: none;
+}
+
+#frame #sidepanel #search {
+  border-top: 1px solid #32465a;
+  border-bottom: 1px solid #32465a;
+  font-weight: 300;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #search {
+    display: none;
+  }
+}
+
+#frame #sidepanel #search label {
+  margin: 10px 0 0 20px;
+  position: absolute;
+}
+
+#frame #sidepanel #search input {
+  color: #f5f5f5;
+  background: #32465a;
+  border: none;
+  width: calc(100% - 25px);
+  padding: 10px 0 10px 46px;
+  font-family: proxima-nova, Source Sans Pro, sans-serif;
+}
+
+#frame #sidepanel #search input:focus {
+  background: #435f7a;
+  outline: none;
+}
+
+#frame #sidepanel #search input::-webkit-input-placeholder {
+  color: #f5f5f5;
+}
+
+#frame #sidepanel #search input::placeholder {
+  color: #f5f5f5;
+}
+
+#frame #sidepanel #search input:-ms-input-placeholder {
+  color: #f5f5f5;
+}
+
+#frame #sidepanel #search input:-moz-placeholder {
+  color: #f5f5f5;
+}
+
+#frame #sidepanel #contacts {
+  height: calc(100% - 177px);
+  overflow: hidden scroll;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #contacts {
+    height: calc(100% - 149px);
+    overflow: hidden scroll;
+  }
+
+  #frame #sidepanel #contacts::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+#frame #sidepanel #contacts.expanded {
+  height: calc(100% - 334px);
+}
+
+#frame #sidepanel #contacts::-webkit-scrollbar {
+  background: #2c3e50;
+  width: 8px;
+}
+
+#frame #sidepanel #contacts::-webkit-scrollbar-thumb {
+  background-color: #243140;
+}
+
+#frame #sidepanel #contacts ul li.contact {
+  cursor: pointer;
+  padding: 10px 0 15px;
+  font-size: .9em;
+  position: relative;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #contacts ul li.contact {
+    padding: 6px 0 66px 8px;
+  }
+}
+
+#frame #sidepanel #contacts ul li.contact:hover {
+  background: #32465a;
+}
+
+#frame #sidepanel #contacts ul li.contact.active {
+  background: #32465a;
+  border-right: 5px solid #435f7a;
+}
+
+#frame #sidepanel #contacts ul li.contact.active span.contact-status {
+  border: 2px solid #32465a !important;
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap {
+  width: 88%;
+  margin: 0 auto;
+  position: relative;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #contacts ul li.contact .wrap {
+    width: 100%;
+  }
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap span {
+  background: #95a5a6;
+  border: 2px solid #2c3e50;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -2px 0 0 -2px;
+  position: absolute;
+  left: 0;
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap span.online {
+  background: #2ecc71;
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap span.away {
+  background: #f1c40f;
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap span.busy {
+  background: #e74c3c;
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap img {
+  float: left;
+  border-radius: 50%;
+  width: 50px;
+  margin-right: 10px;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #contacts ul li.contact .wrap img {
+    margin-right: 0;
+  }
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap .meta {
+  padding: 5px 0 0;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #contacts ul li.contact .wrap .meta {
+    display: none;
+  }
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap .meta .name {
+  font-weight: 600;
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap .meta .preview {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-transition: 1s all ease;
+  margin: 5px 0 0;
+  padding: 0 0 1px;
+  font-weight: 400;
+  transition: all 1s;
+  overflow: hidden;
+}
+
+#frame #sidepanel #contacts ul li.contact .wrap .meta .preview span {
+  position: initial;
+  border-radius: initial;
+  opacity: .5;
+  background: none;
+  border: none;
+  margin: 0 0 0 1px;
+  padding: 0 2px 0 0;
+}
+
+#frame #sidepanel #bottom-bar {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+#frame #sidepanel #bottom-bar button {
+  float: left;
+  color: #f5f5f5;
+  cursor: pointer;
+  background: #32465a;
+  border: none;
+  width: 50%;
+  padding: 10px 0;
+  font-family: proxima-nova, Source Sans Pro, sans-serif;
+  font-size: .85em;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #bottom-bar button {
+    float: none;
+    width: 100%;
+    padding: 15px 0;
+  }
+}
+
+#frame #sidepanel #bottom-bar button:focus {
+  outline: none;
+}
+
+#frame #sidepanel #bottom-bar button:first-child {
+  border-right: 1px solid #2c3e50;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #bottom-bar button:first-child {
+    border-bottom: 1px solid #2c3e50;
+    border-right: none;
+  }
+}
+
+#frame #sidepanel #bottom-bar button:hover {
+  background: #435f7a;
+}
+
+#frame #sidepanel #bottom-bar button i {
+  margin-right: 3px;
+  font-size: 1em;
+}
+
+@media screen and (width <= 735px) {
+  #frame #sidepanel #bottom-bar button i {
+    font-size: 1.3em;
+  }
+
+  #frame #sidepanel #bottom-bar button span {
+    display: none;
+  }
+}
+
+#frame .content {
+  float: right;
+  width: 60%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+@media screen and (width <= 735px) {
+  #frame .content {
+    width: calc(100% - 100px);
+    min-width: 300px !important;
+  }
+}
+
+@media screen and (width >= 900px) {
+  #frame .content {
+    width: calc(100% - 340px);
+  }
+}
+
+#frame .content .contact-profile {
+  background: #f5f5f5;
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+}
+
+#frame .content .contact-profile img {
+  float: left;
+  border-radius: 50%;
+  width: 60px;
+  margin: 9px 12px 0 9px;
+}
+
+#frame .content .contact-profile p {
+  float: left;
+  font-size: 18px;
+}
+
+#frame .content .contact-profile .social-media {
+  float: right;
+}
+
+#frame .content .contact-profile .social-media i {
+  cursor: pointer;
+  margin-left: 14px;
+}
+
+#frame .content .contact-profile .social-media i:last-child {
+  margin-right: 20px;
+}
+
+#frame .content .contact-profile .social-media i:hover {
+  color: #435f7a;
+}
+
+#frame .content .messages {
+  width: 100%;
+  height: auto;
+  min-height: calc(100% - 93px);
+  max-height: calc(100% - 93px);
+  overflow: hidden scroll;
+}
+
+@media screen and (width <= 735px) {
+  #frame .content .messages {
+    max-height: calc(100% - 105px);
+  }
+}
+
+#frame .content .messages::-webkit-scrollbar {
+  background: none;
+  width: 8px;
+}
+
+#frame .content .messages::-webkit-scrollbar-thumb {
+  background-color: #0000004d;
+}
+
+#frame .content .messages ul li {
+  clear: both;
+  float: left;
+  width: calc(100% - 25px);
+  margin: 15px 15px 5px;
+  font-size: .9em;
+  display: inline-block;
+}
+
+#frame .content .messages ul li:last-child {
+  margin-bottom: 20px;
+}
+
+#frame .content .messages ul li.sent img {
+  margin: 6px 8px 0 0;
+}
+
+#frame .content .messages ul li.sent p {
+  color: #f5f5f5;
+  background: #435f7a;
+}
+
+#frame .content .messages ul li.replies img {
+  float: right;
+  margin: 6px 0 0 8px;
+}
+
+#frame .content .messages ul li.replies p {
+  float: right;
+  background: #f5f5f5;
+}
+
+#frame .content .messages ul li img {
+  float: left;
+  border-radius: 50%;
+  width: 42px;
+}
+
+#frame .content .messages ul li p {
+  border-radius: 20px;
+  max-width: 300px;
+  padding: 10px 15px;
+  font-size: 18px;
+  line-height: 130%;
+  display: inline-block;
+}
+
+@media screen and (width >= 735px) {
+  #frame .content .messages ul li p {
+    max-width: 300px;
+  }
+}
+
+#frame .content .message-input {
+  z-index: 99;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+#frame .content .message-input .wrap {
+  position: relative;
+}
+
+#frame .content .message-input .wrap input {
+  float: left;
+  color: #32465a;
+  border: none;
+  width: calc(100% - 90px);
+  padding: 11px 32px 10px 8px;
+  font-family: proxima-nova, Source Sans Pro, sans-serif;
+  font-size: 1.8em;
+}
+
+@media screen and (width <= 735px) {
+  #frame .content .message-input .wrap input {
+    padding: 15px 32px 16px 8px;
+  }
+}
+
+#frame .content .message-input .wrap input:focus {
+  outline: none;
+}
+
+#frame .content .message-input .wrap .attachment {
+  z-index: 4;
+  color: #435f7a;
+  opacity: .5;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 1.8em;
+  position: absolute;
+  right: 60px;
+}
+
+@media screen and (width <= 735px) {
+  #frame .content .message-input .wrap .attachment {
+    margin-top: 19px;
+    right: 65px;
+  }
+}
+
+#frame .content .message-input .wrap .attachment:hover {
+  opacity: 1;
+}
+
+#frame .content .message-input .wrap button {
+  float: right;
+  cursor: pointer;
+  color: #f5f5f5;
+  background: #32465a;
+  border: none;
+  width: 50px;
+  padding: 12px 0;
+}
+
+@media screen and (width <= 735px) {
+  #frame .content .message-input .wrap button {
+    padding: 21px 0;
+  }
+}
+
+#frame .content .message-input .wrap button:hover {
+  background: #435f7a;
+}
+
+#frame .content .message-input .wrap button:focus {
+  outline: none;
+}
+
+.fa {
+  font-size: 1.5em !important;
+}
+
+/*# sourceMappingURL=index.a5210753.css.map */
