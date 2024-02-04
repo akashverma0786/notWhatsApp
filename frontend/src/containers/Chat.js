@@ -1,18 +1,17 @@
 import React from "react";
-import Sidepanel from "./Sidepanel/Sidepanel";
 import WebSocketInstance from "../websocket";
 
 
 class Chat extends React.Component{
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {}
 
         this.waitForSocketConnection(() => {
             WebSocketInstance.addCallbacks(this.setMessages.bind(this), this.addMessage.bind(this));
             WebSocketInstance.fetchMessages(this.props.currentUser);
-        })
+        });
     }
 
     waitForSocketConnection(callback) {
@@ -44,7 +43,7 @@ class Chat extends React.Component{
         e.preventDefault();
         const messageObject = {
             from: 'admin', 
-            content: this.state.message
+            content: this.state.message,
         }
         WebSocketInstance.newChatMessage(messageObject);
         this.setState({
@@ -58,67 +57,58 @@ class Chat extends React.Component{
     }
 
     renderMessages = (messages) => {
-        const currentUser = admin;
-        return messages.map(message => (
-            <li key={message.id} className={message.author === currentUser ? 'sent' : 'replies'}>
-                <img src='http://emilcarlsson.se/assets/mikeross.png' />
-                <p>
-                    {message.content}
+        const currentUser = "admin";
+        return messages.map((message, i) => (
+            <li 
+                key={message.id} 
+                className={message.author === currentUser ? 'sent' : 'replies'}>
+                <img src="http://emilcarlsson.se/assets/mikeross.png" />
+                <p>{message.content}
                     <br />
-                    <small>
-                       {Math.round((new Date().getTime() - new Date(message.timestamp))/60000)} minutes ago
+                    <small className={message.author === currentUser ? 'sent' : 'replies'}>
+                    {Math.round((new Date().getTime() - new Date(message.timestamp).getTime())/60000)} minutes ago
                     </small>
                 </p>
             </li>
-        ))
+        ));
+    }
+
+    componentDidMount() {
+        WebSocketInstance.connect();
     }
 
     render() {
         const messages = this.state.messages;
         return (
-            <div id="frame">
-                <Sidepanel />
-            <div className="content">
-              <div className="contact-profile">
-                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                <p>username</p>
-                <div className="social-media">
-                  <i className="fa fa-facebook" aria-hidden="true"></i>
-                  <i className="fa fa-twitter" aria-hidden="true"></i>
-                  <i className="fa fa-instagram" aria-hidden="true"></i>
+            <div>            
+                <div className="messages">
+                    <ul id="chat-log">
+                    { 
+                        messages && 
+                        this.renderMessages(messages) 
+                    }
+                    </ul>
                 </div>
-              </div>
-              <div className="messages">
-                <ul id="chat-log">
-                  {
-                    messages &&
-                    this.renderMessages(messages)
-                  }
-                </ul>
-              </div>
-              <div className="message-input">
-                <form onSubmit={this.sendMessageHandler}>
-                <div className="wrap">
-                    <input onChange={this.messageChangeHandler} value={this.state.message} id="chat-message-input" type="text" placeholder="Write your message..." />
-                    <i className="fa fa-paperclip attachment" aria-hidden="true"></i>
-                    <button id="chat-message-submit" className="submit">
-                        <i className="fa fa-paper-plane" aria-hidden="true"></i>
-                    </button>
+                <div className="message-input">
+                    <form onSubmit={this.sendMessageHandler}>
+                        <div className="wrap">
+                            <input 
+                                onChange={this.messageChangeHandler}
+                                value={this.state.message}
+                                required 
+                                id="chat-message-input" 
+                                type="text" 
+                                placeholder="Write your message..." />
+                            <i className="fa fa-paperclip attachment" aria-hidden="true"></i>
+                            <button id="chat-message-submit" className="submit">
+                                <i className="fa fa-paper-plane" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                </form>
-                <div className="wrap">
-                <input id="chat-message-input" type="text" placeholder="Write your message..." />
-                <i className="fa fa-paperclip attachment" aria-hidden="true"></i>
-                <button id="chat-message-submit" className="submit">
-                  <i className="fa fa-paper-plane" aria-hidden="true"></i>
-                </button>
-                </div>
-              </div>
             </div>
-          </div>
-        
-        )
-    }
+        );
+    };
 }
 
 export default Chat;
