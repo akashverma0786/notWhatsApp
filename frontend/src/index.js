@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import 'antd/./dist/antd.js';
+import 'antd/dist/antd.css';
 import reducer from './store/reducers/auth';
 import App from './App';
 

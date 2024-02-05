@@ -1,61 +1,59 @@
-import React from "react";
-import WebSocketInstance from "../websocket";
+import React from 'react';
+import WebSocketInstance from '../websocket';
 
 
-class Chat extends React.Component{
-
+class Chat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {}
-
+    
         this.waitForSocketConnection(() => {
-            WebSocketInstance.addCallbacks(this.setMessages.bind(this), this.addMessage.bind(this));
-            WebSocketInstance.fetchMessages(this.props.currentUser);
+          WebSocketInstance.addCallbacks(this.setMessages.bind(this), this.addMessage.bind(this))
+          WebSocketInstance.fetchMessages(this.props.currentUser);
         });
     }
-
+    
     waitForSocketConnection(callback) {
         const component = this;
         setTimeout(
-            function() {
-                if (WebSocketInstance.state() === 1) {
-                    console.log('connection is secure');
-                    callback();
-                    return;
-                } else {
-                    console.log('waiting for connection...');
-                    component.waitForSocketConnection(callback);
-                }
-            }, 100);
+            function () {
+            if (WebSocketInstance.state() === 1) {
+                console.log("Connection is made");
+                callback();
+                return;
+            } else {
+                console.log("wait for connection...");
+                component.waitForSocketConnection(callback);
+            }
+        }, 100);
     }
-
+    
     addMessage(message) {
         this.setState({ messages: [...this.state.messages, message]});
     }
-
+    
     setMessages(messages) {
-        this.setState({
-            messages: messages.reverse()
-        });
+        this.setState({ messages: messages.reverse()});
     }
-
-    sendMessageHandler = e => {
+    
+    messageChangeHandler = (event) =>  {
+        this.setState({
+            message: event.target.value
+        })
+    }
+    
+    sendMessageHandler = (e) => {
         e.preventDefault();
         const messageObject = {
-            from: 'admin', 
+            from: "admin",
             content: this.state.message,
-        }
+        };
         WebSocketInstance.newChatMessage(messageObject);
         this.setState({
             message: ''
         });
     }
-    messageChangeHandler = event => {
-        this.setState({
-            message: event.target.value
-        })
-    }
-
+    
     renderMessages = (messages) => {
         const currentUser = "admin";
         return messages.map((message, i) => (
@@ -80,7 +78,7 @@ class Chat extends React.Component{
     render() {
         const messages = this.state.messages;
         return (
-            <div>            
+            <div>
                 <div className="messages">
                     <ul id="chat-log">
                     { 
@@ -110,5 +108,5 @@ class Chat extends React.Component{
         );
     };
 }
-
+  
 export default Chat;
